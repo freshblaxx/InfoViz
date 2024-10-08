@@ -34,7 +34,7 @@
                     "Initial Service Date": parseInt(originalData[3][originalData.columns[col]]) || 0,
                     "Wing Span (m)": parseFloat(originalData[10][originalData.columns[col]]) || 0,
                     "Long Range Cruise Speed (km/h)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
-                    "Max. take-off weight (kg)": parseFloat(originalData[11][originalData.columns[col]]) || 0,
+                    "Max. take-off weight (ton)": parseInt(originalData[11][originalData.columns[col]]) || 0,
                     "Take off distance (m)": parseFloat(originalData[19][originalData.columns[col]]) || 0
                 });
             }

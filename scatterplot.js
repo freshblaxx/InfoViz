@@ -130,7 +130,7 @@ function loadAndDrawScatterplot() {
             // Konvertiere die numerischen Felder
             airplane["Fuel(l) per seat per 100km"] = parseFloat(airplane["Fuel(l) per seat per 100km"]) || 0;
             airplane["Max. seats (single class)"] = parseFloat(airplane["Max. seats (single class)"]) || 0;
-            airplane["Max. take-off weight (kg)"] = parseInt(airplane["Max. take-off weight (kg)"]) || 0;
+            airplane["Max. take-off weight (ton)"] = parseInt(airplane["Max. take-off weight (ton)"]) || 0;
             airplane["Take off distance (m)"] = parseFloat(airplane["Take off distance (m)"]) || 0;
 
             data.push(airplane);
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Ansicht umschalten
         if (!alternateView) {
             // Ändere zu alternativen Achsen
-            currentXAxis = "Max. take-off weight (kg)";
+            currentXAxis = "Max. take-off weight (ton)";
             currentYAxis = "Take off distance (m)";
         } else {
             // Wechsel zurück zur Standardansicht
