@@ -52,24 +52,24 @@ function createScatterplot(container, data, xVar, yVar, title) {
 
           //  X-Axis Label but not in german
     svg.append("text")
-    .attr("class", "axis-label")
-    .attr("x", width / 2)
-    .attr("y", height + 40) // Adjust here to be closer to the X axis
-    .style("text-anchor", "middle")
-    .style("font-size", "12px")
-    .style("font-weight", "bold")
-    .text(xVar);
+        .attr("class", "axis-label")
+        .attr("x", width / 2)
+        .attr("y", height + 40) // Adjust here to be closer to the X axis
+        .style("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+        .text(xVar);
 
 // Y-Axis Label but not in german
-svg.append("text")
-    .attr("class", "axis-label")
-    .attr("x", -height / 2)
-    .attr("y", -50) // Adjust here to be closer to the Y axis
-    .attr("transform", "rotate(-90)") // Rotation parameter
-    .style("text-anchor", "middle")
-    .style("font-size", "12px")
-    .style("font-weight", "bold")
-    .text(yVar);
+    svg.append("text")
+        .attr("class", "axis-label")
+        .attr("x", -height / 2)
+        .attr("y", -50) // Adjust here to be closer to the Y axis
+        .attr("transform", "rotate(-90)") // Rotation parameter
+        .style("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+        .text(yVar);
 
     // Punkte zeichnen
     svg.selectAll("circle")
