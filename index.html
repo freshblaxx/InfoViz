@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modular Multi-Idiom Dashboard</title>
@@ -9,46 +10,12 @@
     <script src="scatterplotWithTrends.js"></script>
     <script src="worldMap.js"></script>
     <script src="barChart.js"></script>
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            margin: 20px;
-        }
-        .row {
-            display: flex; /* Idioms nebeneinander */
-            justify-content: space-around;
-            width: 100%;
-            margin: 20px 0;
-        }
-        .chart {
-            width: 45%;
-            height: 500px;
-            margin: 20px;
-        }
-        .axis-label {
-            font: 12px sans-serif;
-            font-weight: bold;
-        }
-        .tooltip {
-            position: absolute;
-            text-align: center;
-            width: auto;
-            padding: 6px;
-            font: 12px sans-serif;
-            background: lightsteelblue;
-            border: 0px;
-            border-radius: 4px;
-            pointer-events: none;
-        }
-    </style>
 </head>
 <body>
     <div class = "row">
-    <div id="scatterplot1" class="chart"></div> <!-- Idiom 1: Scatterplot -->
+    <div id="scatterplot1" class="chart"></div><button id="toggleView">Change View</button> <!-- Idiom 1: Scatterplot -->
     <div id="scatterplot2" class="chart"></div> <!-- Idiom 2: Scatterplot mit Trendlinie -->
-    </div>
+    </div>          
     <div class = "row"> 
     <div id="map" class="chart"></div> <!-- Idiom 3: Weltkarte -->
     <div id="barChart" class="chart"></div> <!-- Idiom 4: Balkendiagramm -->
@@ -66,12 +33,14 @@
                     "Max. seats (single class)": parseFloat(originalData[5][originalData.columns[col]]) || 0,
                     "Initial Service Date": parseInt(originalData[3][originalData.columns[col]]) || 0,
                     "Wing Span (m)": parseFloat(originalData[10][originalData.columns[col]]) || 0,
-                    "Long Range Cruise Speed (km/h)": parseFloat(originalData[15][originalData.columns[col]]) || 0
+                    "Long Range Cruise Speed (km/h)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
+                    "Max. take-off weight (kg)": parseFloat(originalData[11][originalData.columns[col]]) || 0,
+                    "Take off distance (m)": parseFloat(originalData[19][originalData.columns[col]]) || 0
                 });
             }
 
             // Scatterplot 1: Fuel Efficiency vs. Takeoff Distance
-            createScatterplot("#scatterplot1", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Fuel(l) per seat per 100km vs. Max. seats (single class)");
+            createScatterplot("#scatterplot1", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Fuel(l) per seat per 100km vs. Max. seats (single class)" );
 
             // Scatterplot 2: Initial Service Date vs. Wing Span (mit Trendlinie)
             createScatterplotWithTrend("#scatterplot2", data, "Initial Service Date", "Wing Span (m)", "Initial Service Date vs. Wing Span");

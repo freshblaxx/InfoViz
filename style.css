@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+}
+.row {
+    display: flex; /* Idioms nebeneinander */
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    margin: 20px 0;
+}
+.chart {
+    width: 45%;
+    height: 500px;
+    margin: 20px;
+}
+.axis-label {
+    font: 12px sans-serif;
+    font-weight: bold;
+}
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    padding: 6px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 4px;
+    pointer-events: none;
+}
+button{
+    background-color: #4CAF50; /* Grüne Hintergrundfarbe */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+button:hover {
+    background-color: #45a049; /* Dunklere grüne Hintergrundfarbe */
+}
+#toggleView {
+    display: inline-block;
+    margin-top: 10px; /* Oberer Abstand zum Container */
+}
+#map{
+    width: 450px; /* Einheitliche Breite für alle Diagramme */
+    height: 450px; /* Einheitliche Höhe für alle Diagramme */
+    margin: 20px; /* Gleicher Abstand zwischen den Diagrammen */
+    position: relative;
+}
+#barChart{
+    width: 450px; /* Einheitliche Breite für alle Diagramme */
+    height: 450px; /* Einheitliche Höhe für alle Diagramme */
+    margin: 20px; /* Gleicher Abstand zwischen den Diagrammen */
+    position: right center;
+}
