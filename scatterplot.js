@@ -1,16 +1,30 @@
 // Standardmäßig festgelegte Achsen-Variablen
 let currentXAxis = "Max. seats (single class)";
 let currentYAxis = "Fuel(l) per seat per 100km";
-let alternateView = false; // Zustand für die Ansicht wechseln
+let alternateView = false; // Toggle between different views
+let showOutliers = true;   // Toggle for showing/hiding outliers
 
-// Funktion zum Erstellen des Scatterplots
+// Overly complex function to calculate mean and standard deviation
+function calculateMeanAndStd(data, key) {
+    const mean = d3.mean(data, d => d[key]);
+    const stdDev = d3.deviation(data, d => d[key]);
+    return { mean, stdDev };
+}
+
+// Overly complex function to filter out outliers based on standard deviations from the mean
+function filterOutliers(data, key, numStdDev = 2) {
+    const { mean, stdDev } = calculateMeanAndStd(data, key);
+    return data.filter(d => Math.abs(d[key] - mean) <= numStdDev * stdDev);
+}
+
+// Function to create the scatterplot
 function createScatterplot(container, data, xVar, yVar, title) {
-    // Nur das spezifische SVG im `#scatterplot1`-Container entfernen
+       // Remove the previous scatterplot
     d3.select(container).select("svg").remove();
 
-    const margin = { top: 50, right: 50, bottom: 60, left: 70 };
-    const width = 400 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const margin = { top: 50, right: 20, bottom: 40, left: 70 };
+    const width = 450 - margin.left - margin.right;
+    const height = 450 - margin.top - margin.bottom;
 
     const svg = d3.select(container)
         .append("svg")
@@ -18,6 +32,7 @@ function createScatterplot(container, data, xVar, yVar, title) {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
+        
 
     // Dynamische Skalen basierend auf den aktuellen Variablen
     const xScale = d3.scaleLinear()
@@ -54,7 +69,7 @@ function createScatterplot(container, data, xVar, yVar, title) {
     svg.append("text")
         .attr("class", "axis-label")
         .attr("x", width / 2)
-        .attr("y", height + 40) // Adjust here to be closer to the X axis
+        .attr("y", height + 35) // Adjust here to be closer to the X axis
         .style("text-anchor", "middle")
         .style("font-size", "12px")
         .style("font-weight", "bold")
@@ -64,7 +79,7 @@ function createScatterplot(container, data, xVar, yVar, title) {
     svg.append("text")
         .attr("class", "axis-label")
         .attr("x", -height / 2)
-        .attr("y", -50) // Adjust here to be closer to the Y axis
+        .attr("y", -40) // Adjust here to be closer to the Y axis
         .attr("transform", "rotate(-90)") // Rotation parameter
         .style("text-anchor", "middle")
         .style("font-size", "12px")
@@ -192,4 +207,5 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initiales Zeichnen des Scatterplots nach Laden der CSV-Datei
     loadAndDrawScatterplot();
 });
+
 

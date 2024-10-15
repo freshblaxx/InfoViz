@@ -1,21 +1,68 @@
 body {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    margin: 20px;
+    margin: 10px;
 }
 .row {
     display: flex; /* Idioms nebeneinander */
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: start;
     align-items: flex-start;
     gap: 20px;
-    width: 100%;
-    margin: 20px 0;
+    width: 00%;
+    margin: 20px;
+    
+}
+/* Flexbox container for visualizations */
+.visualization-container {
+    display: flex;
+    justify-content: space-between; /* Space between the two columns */
+    margin: 20px;
+    position: relative; /* Needed for absolute positioning of child elements */
+}
+/* Scatterplots on the left */
+.scatterplot-column {
+    position: relative; /* Parent of absolutely positioned elements */
+    display: flex;
+    flex-direction: column; /* Stack the scatterplots vertically */
+    margin-right: 20px; /* Space between scatterplots and right column */
+    z-index: 1; /* Scatterplots are below the buttons but above the background */
+}
+/* Map and Barchart on the right */
+.right-column {
+    display: flex;
+    flex-direction: column; /* Stack the map and barchart vertically */
+    width: 450px; /* Fixed width for the right column */
+    z-index: 3; /* Higher z-index to place the map and barchart above buttons */
+}
+/* Buttons Container Positioned Over Scatterplots */
+.buttons-container1 {
+    position: absolute;
+    flex-direction: column;
+    top: 10px; /* Adjust top positioning */
+    left: 70px; /* Adjust left positioning */
+    z-index: 2; /* Higher than scatterplots, but lower than map/barchart */
+    background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+}
+.buttons-container2 {
+    position: absolute;
+    top: 480px; /* Adjust top positioning */
+    left: 150px; /* Adjust left positioning */
+    z-index: 2; /* Higher than scatterplots, but lower than map/barchart */
+    background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 .chart {
-    width: 45%;
+    width: 10%;
     height: 500px;
-    margin: 20px;
+    margin: 10px;
+    margin-right: 10px;
 }
 .axis-label {
     font: 12px sans-serif;
@@ -33,7 +80,7 @@ body {
     pointer-events: none;
 }
 button{
-    background-color: #4CAF50; /* Grüne Hintergrundfarbe */
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 4px;
@@ -42,9 +89,28 @@ button{
     font-size: 14px;
     font-weight: bold;
     text-align: center;
+    margin-left: 50px; /* Remove any additional left margin */
+    position: relative;
+    top: -10px; /* Move the button up to be closer vertically if necessary */
 }
 button:hover {
     background-color: #45a049; /* Dunklere grüne Hintergrundfarbe */
+}
+
+#hideOutliers {
+    background-color: #f44336; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px; /* Optional, to add space */
+}
+
+#hideOutliers:hover {
+    background-color: #d32f2f; /* Darker red */
 }
 #toggleView {
     display: inline-block;
@@ -53,12 +119,76 @@ button:hover {
 #map{
     width: 450px; /* Einheitliche Breite für alle Diagramme */
     height: 450px; /* Einheitliche Höhe für alle Diagramme */
-    margin: 20px; /* Gleicher Abstand zwischen den Diagrammen */
+    margin: 0px; /* Gleicher Abstand zwischen den Diagrammen */
     position: relative;
 }
 #barChart{
     width: 450px; /* Einheitliche Breite für alle Diagramme */
     height: 450px; /* Einheitliche Höhe für alle Diagramme */
-    margin: 20px; /* Gleicher Abstand zwischen den Diagrammen */
+    margin: 0px; /* Gleicher Abstand zwischen den Diagrammen */
     position: right center;
+}
+
+#scatterplot1, #scatterplot2 {
+    margin-bottom: 0px; /* Add space between the scatterplots */
+}
+
+#yAxisSelect {
+    margin-bottom: 20px; /* Add space between the dropdown and second scatterplot */
+}
+.dropdown-container {
+    margin-left: 10px; /* Move the dropdown closer to the second scatterplot */
+}
+/* Panel for the plane names on the right */
+#planePanel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    overflow-y: auto; /* Allow scrolling if the list is too long */
+    background-color: #f4f4f4; /* Light background */
+    border-left: 2px solid #ccc; /* Add a border on the left */
+    padding: 10px;
+}
+
+#planePanel h2 {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#planePanel ul {
+    list-style: none;
+    padding: 0;
+}
+
+#planePanel li {
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+#planePanel li:hover {
+    background-color: #ddd;
+}
+
+/* Default styling for plane list items */
+.plane-item {
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.plane-item:hover {
+    background-color: #ddd;
+}
+
+/* Highlight the selected plane in the list */
+.highlighted {
+    background-color: #ffeb3b;  /* Yellow background for the highlighted plane */
+    font-weight: bold;
 }

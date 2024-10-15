@@ -6,21 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modular Multi-Idiom Dashboard</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="PlaneList.js"></script>
     <script src="scatterplot.js"></script>
     <script src="scatterplotWithTrends.js"></script>
     <script src="worldMap.js"></script>
     <script src="barChart.js"></script>
 </head>
 <body>
-    <div id="header"></div>
-    <div class = "row">
-    <div id="scatterplot1" class="chart"></div><button id="toggleView">Change View</button> <!-- Idiom 1: Scatterplot -->
-    <div id="scatterplot2" class="chart"></div> <!-- Idiom 2: Scatterplot mit Trendlinie -->
-    </div>          
-    <div class = "row"> 
-    <div id="map" class="chart"></div> <!-- Idiom 3: Weltkarte -->
-    <div id="barChart" class="chart"></div> <!-- Idiom 4: Balkendiagramm -->
+    <div class="visualization-container">
+        <!-- Scatterplots Column -->
+        <div class="scatterplot-column">
+            <div id="scatterplot1" class="chart"></div> <!-- Scatterplot 1 -->
+            <div id="scatterplot2" class="chart"></div> <!-- Scatterplot 2 with trends -->
+            
+            <!-- Dropdown for Y-axis selection (placed absolutely over scatterplots) -->
+            <div class="buttons-container1">
+                <button id="toggleView">Change View</button> 
+                <button id="hideOutliers">Hide Outliers</button> <!-- Button to hide/show outliers -->
+            </div>
+            <div class="buttons-container2">
+                <label for="yAxisSelect">Select Y-axis variable:</label>
+                <select id="yAxisSelect"></select>
+            </div>
+        </div>
+    
+        <!-- Right Column (Map and Barchart) -->
+        <div class="right-column">
+            <div id="map" class="chart"></div> <!-- Map visualization -->
+            <div id="barChart" class="chart"></div> <!-- Barchart visualization -->
+        </div>
     </div>
+    
+        <!-- Right Column (Map and Barchart) -->
+        <div class="right-column">
+            <div id="map" class="chart"></div> <!-- Map visualization -->
+            <div id="barChart" class="chart"></div> <!-- Barchart visualization -->
+        </div>
+    </div>
+    <button id="deselectAll">Deselect All</button>
+    <div id="planePanel" class="panel"></div> <!-- Right-side panel list for plane -->
     <script>
         d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
             const data = [];
@@ -44,7 +68,7 @@
             createScatterplot("#scatterplot1", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Fuel(l) per seat per 100km vs. Max. seats (single class)" );
 
             // Scatterplot 2: Initial Service Date vs. Wing Span (mit Trendlinie)
-            createScatterplotWithTrend("#scatterplot2", data, "Initial Service Date", "Wing Span (m)", "Initial Service Date vs. Wing Span");
+            createScatterplotWithTrend("#scatterplot", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Max. seats (single class) vs. Fuel(l) per seat per 100km");
 
             // Platzhalter für Weltkarte (Idiom 3)
             createWorldMap("#map");

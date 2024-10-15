@@ -2,6 +2,7 @@
 let currentXAxis = "Fuel(l) per seat per 100km";
 let currentYAxis = "Max. seats (single class)";
 let alternateView = false; // Zustand für die Ansicht wechseln
+let showOutliers = false;    // Toggle for showing/hiding outliers
 
 // Funktion zum Aktualisieren des Scatterplots
 function updateScatterplot() {
@@ -23,3 +24,9 @@ document.getElementById('changeViewButton').addEventListener('click', () => {
     alternateView = !alternateView; // Zustand wechseln
     updateScatterplot(); // Scatterplot aktualisieren
 });
+// Event listener for the second button to toggle outliers visibility
+document.getElementById('hideOutliers').addEventListener('click', () => {
+    showOutliers = !showOutliers;  // Toggle the outlier visibility state
+    updateScatterplot();           // Re-draw the scatterplot with/without outliers
+});
+
