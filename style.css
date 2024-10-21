@@ -1,4 +1,5 @@
 body {
+    position: absolute;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -8,6 +9,7 @@ body {
     width: 100vh;
 }
 .row {
+    position: absolute;
     display: flex; /* Idioms nebeneinander */
     flex-direction: row;
     justify-content: start;
