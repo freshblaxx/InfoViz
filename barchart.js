@@ -1,7 +1,7 @@
 function createBarChart(container, data, yVar) {
     const margin = { top: 10, right: 20, bottom: 40, left: 50 };
     const width = 500 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const height = 420 - margin.top - margin.bottom;
 
     // Initiale X-Variable für die Visualisierung
     let currentXVar = "Long Range Cruise Speed (km/h)"; // Standardmäßig Speed
