@@ -126,6 +126,14 @@ button:hover {
 #hideOutliers:hover {
     background-color: #d32f2f; /* Darker red */
 }
+#clearListButton{
+    position: absolute; /* Absolute Positionierung */
+    right: 10px; /* 10px Abstand von der rechten Seite des Containers */
+    top: 10px; /* 10px Abstand von der oberen Seite des Containers */
+    z-index: 100;
+
+
+}
 #toggleView {
     display: inline-block;
     margin-top: 10px; /* Oberer Abstand zum Container */

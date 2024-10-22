@@ -29,6 +29,10 @@ function populatePlanePanel(data) {
 
     // Initially populate the full list
     filterPlaneList(data, "");
+    
+
+    addClearButton();
+
 }
 
 // Function to filter and display the list of planes based on search term
@@ -115,5 +119,24 @@ function loadAndPopulatePlaneList() {
     });
 }
 
+
+
 // Call this function after the page loads to populate the plane list
 document.addEventListener('DOMContentLoaded', loadAndPopulatePlaneList);
+// Function to clear all selected planes
+function clearSelectedPlanes() {
+    selectedPlanes = [];
+    d3.selectAll(".plane-item").classed("highlighted", false); // Remove highlighting
+    highlightSelectedPlanesInScatterplot(); // Update the scatterplot to reflect the cleared selection
+}
+
+// Function to add a "Clear Selections" button in the plane panel
+function addClearButton() {
+    const planePanel = d3.select("#planePanel");
+    
+    // Add a button for clearing selections
+    planePanel.append("button")
+        .attr("id", "clearSelections")
+        .text("Clear Selections")
+        .on("click", clearSelectedPlanes);
+}
