@@ -14,7 +14,7 @@ function populatePlanePanel(data) {
 
     // Add a title to the panel
     planePanel.append("h2").text("List of Planes");
-
+    addClearButton();
     // Add a search input field
     planePanel.append("input")
         .attr("type", "text")
@@ -31,7 +31,7 @@ function populatePlanePanel(data) {
     filterPlaneList(data, "");
     
 
-    addClearButton();
+   
 
 }
 
