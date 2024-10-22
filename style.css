@@ -47,11 +47,13 @@ body {
 /* Buttons Container Positioned Over Scatterplots */
 .buttons-container1 {
     position: absolute;
-    flex-direction: column;
-    top: 10px; /* Adjust top positioning */
-    left: 70px; /* Adjust left positioning */
-    z-index: 2; /* Higher than scatterplots, but lower than map/barchart */
-    background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    display: flex; /* Elemente in einer Reihe anzeigen */
+    flex-direction: row; /* Horizontal anordnen */
+    gap: 10px; /* Abstand zwischen den Buttons */
+    top: 10px; /* Obere Position beibehalten */
+    left: 70px; /* Linke Position beibehalten */
+    z-index: 2; /* Höher als die Scatterplots, aber niedriger als die Map/Barchart */
+    background-color: rgba(255, 255, 255, 0); /* Durchsichtiger Hintergrund */
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
@@ -87,7 +89,7 @@ body {
     border-radius: 4px;
     pointer-events: none;
 }
-button{
+button {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -97,12 +99,15 @@ button{
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    margin-left: 50px; /* Remove any additional left margin */
+    margin-left: 50px;
     position: relative;
-    top: -10px; /* Move the button up to be closer vertically if necessary */
+    top: -10px;
+    width: 150px; /* Feste Breite für die Buttons */
+    height: 50px; /* Feste Höhe für die Buttons */
+    white-space: nowrap; /* Verhindert, dass der Text umgebrochen wird */
 }
 button:hover {
-    background-color: #45a049; /* Dunklere grüne Hintergrundfarbe */
+    background-color: #45a049; /* Dunklere grÃ¼ne Hintergrundfarbe */
 }
 
 #hideOutliers {
@@ -125,14 +130,14 @@ button:hover {
     margin-top: 10px; /* Oberer Abstand zum Container */
 }
 #map{
-    width: 450px; /* Einheitliche Breite für alle Diagramme */
-    height: 450px; /* Einheitliche Höhe für alle Diagramme */
+    width: 450px; /* Einheitliche Breite fÃ¼r alle Diagramme */
+    height: 450px; /* Einheitliche HÃ¶he fÃ¼r alle Diagramme */
     margin: 0px; /* Gleicher Abstand zwischen den Diagrammen */
     position: relative;
 }
 #barChart{
-    width: 450px; /* Einheitliche Breite für alle Diagramme */
-    height: 450px; /* Einheitliche Höhe für alle Diagramme */
+    width: 450px; /* Einheitliche Breite fÃ¼r alle Diagramme */
+    height: 450px; /* Einheitliche HÃ¶he fÃ¼r alle Diagramme */
     margin: 0px; /* Gleicher Abstand zwischen den Diagrammen */
     position: right center;
 }

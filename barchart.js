@@ -107,11 +107,6 @@ function createBarChart(container, data, yVar) {
         .text("Seat X Range")
         .on("click", () => updateBarChart("Max. seats (single class)"));
 
-    // Button für "Range"
-    buttonContainer.append("button")
-        .text("Range")
-        .on("click", () => updateBarChart("Max. fuel (+p) Range (nm)"));
-
     // Erstelle das SVG-Element für das Diagramm
     const svg = d3.select(container)
         .append("svg")

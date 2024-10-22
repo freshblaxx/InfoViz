@@ -21,7 +21,7 @@
             
             <!-- Dropdown for Y-axis selection (placed absolutely over scatterplots) -->
             <div class="buttons-container1">
-                <button id="toggleView">Change View</button> 
+                <button id="toggleView" onclick="toggleView()">DistanceXWeight</button>
                 <button id="hideOutliers">Hide Outliers</button> <!-- Button to hide/show outliers -->
             </div>
             <div class="buttons-container2">
@@ -75,6 +75,20 @@
             // Platzhalter für Balkendiagramm (Idiom 4)
             createBarChart("#barChart", data, "Model", "Long Range Cruise Speed (km/h)");
     });
+    function toggleView() {
+    const button = document.getElementById('toggleView');
+    const isDistanceXWeight = button.textContent === 'DistanceXWeight';
+
+    if (isDistanceXWeight) {
+        // Change to FuelXSeats
+        button.textContent = 'FuelXSeats';
+        createScatterplot("#scatterplot1", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Fuel(l) per seat per 100km vs. Max. seats (single class)");
+    } else {
+        // Change back to DistanceXWeight
+        button.textContent = 'DistanceXWeight';
+        createScatterplot("#scatterplot1", data, "Take off distance (m)", "Max. take-off weight (ton)", "Take off distance (m) vs. Max. take-off weight (ton)");
+    }
+}
 </script>
 </body>
 </html>
