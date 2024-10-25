@@ -13,7 +13,7 @@ const tooltip = d3.select("body").append("div")
 function createScatterplotWithTrend(container, data, xVar, yVar, title) {
     const margin = { top: 50, right: 20, bottom: 40, left: 70 };
     const width = 450 - margin.left - margin.right;
-    const height = 450 - margin.top - margin.bottom;
+    const height = 330 - margin.top - margin.bottom;
     
     // Remove existing scatterplot (if any)
     d3.select(container).select("svg").remove();

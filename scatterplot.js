@@ -24,7 +24,7 @@ function createScatterplot(container, data, xVar, yVar, title) {
 
     const margin = { top: 50, right: 20, bottom: 40, left: 70 };
     const width = 450 - margin.left - margin.right;
-    const height = 450 - margin.top - margin.bottom;
+    const height = 330 - margin.top - margin.bottom;
 
     const svg = d3.select(container)
         .append("svg")

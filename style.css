@@ -55,7 +55,7 @@ body {
     border: 9px solid #cccccc; /* Light border to define each frame */
     border-radius: 5px;        /* Rounded corners for a softer look */
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    width: 300px; /* Fixed width for the right column */
+    width: 650px; /* Fixed width for the right column */
     z-index: 3; /* Higher z-index to place the map and barchart above buttons */
 }
 /* Buttons Container Positioned Over Scatterplots */
@@ -74,9 +74,10 @@ body {
 }
 .buttons-container2 {
     position: absolute;
-    top: 480px; /* Adjust top positioning */
-    left: 150px; /* Adjust left positioning */
+    top: 350px; /* Adjust top positioning */
+    left: 100px; /* Adjust left positioning */
     font: 12px sans-serif;
+    font-weight: bold;
     z-index: 2; /* Higher than scatterplots, but lower than map/barchart */
     background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
     padding: 10px;
@@ -85,7 +86,7 @@ body {
 }
 .chart {
     width: 10%;
-    height: 450px;
+    height: 300px;
     margin: 10px;
     margin-right: 10px;
 }
@@ -168,7 +169,7 @@ button:hover {
 
 #scatterplot1, #scatterplot2, #barchart, #map{
     margin-bottom: 0px; /* Add space between the scatterplots */
-    width: 200%; /* Nutze die volle Breite der jeweiligen Spalte */
+    width: 0%; /* Nutze die volle Breite der jeweiligen Spalte */
 }
 
 #yAxisSelect {
