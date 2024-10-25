@@ -7,6 +7,7 @@ body {
     overflow: hidden;
     height: 100vh;
     width: 100vh;
+    background-color: #f7f7f7; /* Light gray to reduce white glare */
 }
 .row {
     position: absolute;
@@ -34,14 +35,27 @@ body {
     position: relative; /* Parent of absolutely positioned elements */
     display: flex;
     flex-direction: column; /* Stack the scatterplots vertically */
+    width: 500px;
     margin-right: 20px; /* Space between scatterplots and right column */
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff; /* White background for each frame */
+    border: 9px solid #cccccc; /* Light border to define each frame */
+    border-radius: 5px;        /* Rounded corners for a softer look */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
     z-index: 1; /* Scatterplots are below the buttons but above the background */
 }
 /* Map and Barchart on the right */
 .right-column {
     display: flex;
     flex-direction: column; /* Stack the map and barchart vertically */
-    width: 300px; /* Fixed width for the right column */
+    margin: 10px;
+    padding: 10px;
+    background-color: #ffffff; /* White background for each frame */
+    border: 9px solid #cccccc; /* Light border to define each frame */
+    border-radius: 5px;        /* Rounded corners for a softer look */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    width: 600px; /* Fixed width for the right column */
     z-index: 3; /* Higher z-index to place the map and barchart above buttons */
 }
 /* Buttons Container Positioned Over Scatterplots */
@@ -51,7 +65,7 @@ body {
     flex-direction: row; /* Horizontal anordnen */
     gap: 10px; /* Abstand zwischen den Buttons */
     top: 10px; /* Obere Position beibehalten */
-    left: 70px; /* Linke Position beibehalten */
+    left: 50px; /* Linke Position beibehalten */
     z-index: 2; /* Höher als die Scatterplots, aber niedriger als die Map/Barchart */
     background-color: rgba(255, 255, 255, 0); /* Durchsichtiger Hintergrund */
     padding: 10px;
