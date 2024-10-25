@@ -1,11 +1,11 @@
 // Funktion für die Weltkarte (Idiom 3)
 function createWorldMap(container) {
     const margin = { top: 50, right: 20, bottom: 40, left: 70 };
-    const width = 450 - margin.left - margin.right;
-    const height = 450 - margin.top - margin.bottom;
+    const width = 650 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
     // Verwende die Mercator-Projektion
-    const projection = d3.geoMercator()
+    const projection = d3.geoEquirectangular()
         .scale(100)
         .translate([width / 2, height / 1.5]);
 

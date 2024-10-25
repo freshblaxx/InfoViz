@@ -26,7 +26,6 @@ function populatePlanePanel(data) {
 
     // Create an unordered list (ul) to hold the plane names
     planePanel.append("ul").attr("id", "planeList");
-
     // Initially populate the full list
     filterPlaneList(data, "");
     

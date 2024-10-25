@@ -55,7 +55,7 @@ body {
     border: 9px solid #cccccc; /* Light border to define each frame */
     border-radius: 5px;        /* Rounded corners for a softer look */
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    width: 600px; /* Fixed width for the right column */
+    width: 300px; /* Fixed width for the right column */
     z-index: 3; /* Higher z-index to place the map and barchart above buttons */
 }
 /* Buttons Container Positioned Over Scatterplots */
@@ -76,6 +76,7 @@ body {
     position: absolute;
     top: 480px; /* Adjust top positioning */
     left: 150px; /* Adjust left positioning */
+    font: 12px sans-serif;
     z-index: 2; /* Higher than scatterplots, but lower than map/barchart */
     background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
     padding: 10px;
@@ -84,7 +85,7 @@ body {
 }
 .chart {
     width: 10%;
-    height: 500px;
+    height: 450px;
     margin: 10px;
     margin-right: 10px;
 }
@@ -187,6 +188,7 @@ button:hover {
     background-color: #f4f4f4; /* Light background */
     border-left: 2px solid #ccc; /* Add a border on the left */
     padding: 10px;
+    font: 12px sans-serif;
 }
 
 #planePanel h2 {
@@ -226,6 +228,18 @@ button:hover {
 
 /* Highlight the selected plane in the list */
 .highlighted {
-    background-color: #ffeb3b;  /* Yellow background for the highlighted plane */
+    background-color: #fff16e;  /* Yellow background for the highlighted plane */
     font-weight: bold;
+}
+#planeSearch {
+    display: block;             /* Make sure it takes up its own line */
+    margin: 0 auto;             /* Center horizontally */
+    text-align: center;         /* Center text inside the input */
+    width: 80%;                 /* Set width as needed, for example, 80% */
+    padding: 8px;               /* Optional padding for better visuals */
+    font-size: 1em;             /* Optional font size adjustment */
+}
+
+.planePanel {
+    text-align: center;         /* Center elements within this container */
 }
