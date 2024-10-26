@@ -52,8 +52,9 @@
     
     
     <script>
+        const data = [];
         d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
-            const data = [];
+            
             for (let col = 0; col < originalData.columns.length; col++) {
                 data.push({
                     Manufacturer: originalData[0][originalData.columns[col]],

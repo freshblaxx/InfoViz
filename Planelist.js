@@ -63,6 +63,7 @@ function filterPlaneList(data, searchTerm) {
 }
 
 // Function to toggle plane selection in the list and scatterplot
+// Function to toggle plane selection in the list, scatterplot, and bar chart
 function togglePlaneSelection(planeData, listItem) {
     const planeIndex = selectedPlanes.indexOf(planeData);
 
@@ -76,9 +77,11 @@ function togglePlaneSelection(planeData, listItem) {
         listItem.classed("highlighted", false);
     }
 
-    // Update the scatterplot to reflect the new selection
+    // Update the scatterplot and bar chart to reflect the new selection
     highlightSelectedPlanesInScatterplot();
+    highlightSelectedPlanesInBarchart();
 }
+
 
 // Function to highlight the selected planes in the scatterplot
 function highlightSelectedPlanesInScatterplot() {
@@ -93,6 +96,24 @@ function highlightSelectedPlanesInScatterplot() {
             .attr("r", 8);  // Increase size for emphasis
     });
 }
+
+// Function to highlight the selected planes in the bar chart
+function highlightSelectedPlanesInBarChart() {
+    // Reset all bars to default style
+    d3.selectAll(".bar").classed("highlighted-bar", false);
+
+    // Highlight each selected plane in the bar chart
+    selectedPlanes.forEach(planeData => {
+        d3.selectAll(".bar")
+             .filter(d => 
+                d.Model.trim() === planeData.Model.trim() &&
+                d.Manufacturer.trim() === planeData.Manufacturer.trim() &&
+                d.Type.trim() === planeData.Type.trim()  // Added condition for Type
+        )
+            .classed("highlighted-bar", true);
+    });
+}
+
 
 // Function to load data from the CSV and populate the plane panel
 function loadAndPopulatePlaneList() {
@@ -154,4 +175,5 @@ function togglePlaneSelection(planeData, listItem) {
 
     // Scatterplot aktualisieren, um die neue Auswahl anzuzeigen
     highlightSelectedPlanesInScatterplot();
+    highlightSelectedPlanesInBarChart();
 }

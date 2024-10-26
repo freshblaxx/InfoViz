@@ -1,7 +1,7 @@
 function createBarChart(container, data, yVar) {
     const margin = { top: 20, right: 20, bottom: 40, left: 80 };
-    const width = 400 - margin.left - margin.right; // Erhöhte Breite (etwa 111% der ursprünglichen Größe)
-    const height = 340 - margin.top - margin.bottom; // Erhöhte Höhe (etwa 111% der ursprünglichen Größe)
+    const width = 400 - margin.left - margin.right;
+    const height = 340 - margin.top - margin.bottom;
 
     // Tooltip für das Balkendiagramm
     const tooltip = d3.select("body")
@@ -15,16 +15,16 @@ function createBarChart(container, data, yVar) {
         .style("pointer-events", "none")
         .style("opacity", 0);
 
-    // SVG-Element für das Diagramm, mit zusätzlicher Margin nach unten verschoben
+    // SVG-Element für das Diagramm
     const svg = d3.select(container)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .style("margin-top", "40px") // Zusätzliche obere Margin für das SVG-Element
+        .style("margin-top", "40px")
         .append("g")
-        .attr("transform", `translate(${margin.left - 30},${margin.top})`); // Verschiebung nach links (-30px)
+        .attr("transform", `translate(${margin.left - 30},${margin.top})`);
 
-    // Globale updateBarChart Funktion
+    // Funktion zur Aktualisierung des Balkendiagramms, inklusive Highlighting der ausgewählten Flugzeuge
     updateBarChart = function(xVar) {
         const filteredData = data.filter(d => d[xVar] && d[xVar] > 0);
 
@@ -50,7 +50,7 @@ function createBarChart(container, data, yVar) {
             .attr("y", d => yScale(d[yVar]))
             .attr("width", d => xScale(d[xVar]))
             .attr("height", yScale.bandwidth())
-            .attr("fill", "steelblue")
+            .attr("fill", d => selectedPlanes.includes(d) ? "orange" : "steelblue") // Highlight selected planes
             .on("mouseover", (event, d) => {
                 tooltip.transition().duration(200).style("opacity", 1);
                 tooltip.html(`<strong>${yVar}:</strong> ${d[yVar]}<br><strong>${xVar}:</strong> ${d[xVar]}`)
@@ -63,6 +63,15 @@ function createBarChart(container, data, yVar) {
             })
             .on("mouseout", () => {
                 tooltip.transition().duration(200).style("opacity", 0);
+            })
+            .on("click", (event, d) => {
+                // Beim Klick auf einen Balken Auswahl hinzufügen/entfernen
+                const listItem = d3.select(`planeList li`)
+                    .filter(item => item.Model === d.Model && item.Manufacturer === d.Manufacturer);
+                togglePlaneSelection(d, listItem);
+                
+                // Aktualisieren Sie das Balkendiagramm nach Auswahländerungen
+                updateBarChart(xVar);
             });
 
         svg.append("g")
@@ -86,6 +95,9 @@ function createBarChart(container, data, yVar) {
             .attr("transform", "rotate(-90)")
             .style("text-anchor", "middle")
             .text(yVar);
+
+        // Rufe die Highlighting-Funktion auf, um ausgewählte Flugzeuge zu markieren
+        highlightSelectedPlanesInBarchart();
     };
 
     // Initialisiere das Diagramm mit der Standard-X-Variable

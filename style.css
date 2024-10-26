@@ -222,5 +222,10 @@
     background-color: green;
     color: white; /* Optional: Textfarbe ändern für bessere Lesbarkeit */
 }
+.highlighted-bar {
+    fill: orange !important;  /* Highlight color */
+    stroke: orange !important;
+    stroke-width: 2 !important;
+  }
 
   
