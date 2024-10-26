@@ -139,3 +139,19 @@ function addClearButton() {
         .text("Clear Selections")
         .on("click", clearSelectedPlanes);
 }
+function togglePlaneSelection(planeData, listItem) {
+    const planeIndex = selectedPlanes.indexOf(planeData);
+
+    if (planeIndex === -1) {
+        // Flugzeug ist nicht ausgewählt, daher hinzufügen und hervorheben
+        selectedPlanes.push(planeData);
+        listItem.classed("highlighted", true);
+    } else {
+        // Flugzeug ist bereits ausgewählt, daher entfernen und Hervorhebung löschen
+        selectedPlanes.splice(planeIndex, 1);
+        listItem.classed("highlighted", false);
+    }
+
+    // Scatterplot aktualisieren, um die neue Auswahl anzuzeigen
+    highlightSelectedPlanesInScatterplot();
+}

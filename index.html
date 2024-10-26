@@ -13,30 +13,40 @@
     <script src="barChart.js"></script>
 </head>
 <body>
-    <div class="visualization-container">
-        <!-- Scatterplots Column -->
-        <div class="scatterplot-column">
-            <div id="scatterplot1" class="chart"></div> <!-- Scatterplot 1 -->
-            <div id="scatterplot2" class="chart"></div> <!-- Scatterplot 2 with trends -->
-            
-            <!-- Dropdown for Y-axis selection (placed absolutely over scatterplots) -->
-            <div class="buttons-container1">
-                <button id="toggleView" onclick="toggleView()">DistanceXWeight</button>
-                <button id="hideOutliers">Hide Outliers</button> <!-- Button to hide/show outliers -->
+    <div class="dashboard-grid">
+        <!-- Scatterplot 1 -->
+        <div id="scatterplot1-container" class="grid-item">
+            <div class="buttons-container">
+                <button id="toggleView" onclick="toggleView()">Distance X Weight</button>
+                <button id="hideOutliers">Hide Outliers</button>
             </div>
-            <div class="buttons-container2">
+            <div id="scatterplot1" class="chart"></div>
+        </div>
+
+        <!-- World Map -->
+        <div id="map-container" class="grid-item">
+            <div id="map" class="chart"></div>
+        </div>
+
+        <!-- Scatterplot 2 -->
+        <div id="scatterplot2-container" class="grid-item">
+            <div class="buttons-container">
                 <label for="yAxisSelect">Select Y-axis variable:</label>
                 <select id="yAxisSelect"></select>
             </div>
+            <div id="scatterplot2" class="chart"></div>
         </div>
-    
-        <!-- Right Column (Map and Barchart) -->
-        <div class="right-column">
-            <div id="map" class="chart"></div> <!-- Map visualization -->
-            <div id="barChart" class="chart"></div> <!-- Barchart visualization -->
+
+        <!-- Bar Chart -->
+        <div id="barChart-container" class="grid-item">
+            <!-- Buttons über dem Bar Chart -->
+            <div class="buttons-container">
+                <button id="speedButton" onclick="updateBarChart('Long Range Cruise Speed (km/h)')">Speed</button>
+                <button id="seatRangeButton" onclick="updateBarChart('Max. seats (single class)')">Seat X Range</button>
+            </div>
+            <div id="barChart" class="chart"></div>
         </div>
     </div>
-    
     <div id="planePanel" class="panel"></div> <!-- Right-side panel list for plane -->
 
     

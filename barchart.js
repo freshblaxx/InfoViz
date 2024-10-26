@@ -1,13 +1,10 @@
 function createBarChart(container, data, yVar) {
-    const margin = { top: 10, right: 20, bottom: 40, left: 50 };
-    const width = 650 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    const margin = { top: 20, right: 20, bottom: 40, left: 80 };
+    const width = 400 - margin.left - margin.right; // Erhöhte Breite (etwa 111% der ursprünglichen Größe)
+    const height = 340 - margin.top - margin.bottom; // Erhöhte Höhe (etwa 111% der ursprünglichen Größe)
 
-    // Initiale X-Variable für die Visualisierung
-    let currentXVar = "Long Range Cruise Speed (km/h)"; // Standardmäßig Speed
-
-    // Erstelle den Tooltip
-    const tooltip = d3.select(container)
+    // Tooltip für das Balkendiagramm
+    const tooltip = d3.select("body")
         .append("div")
         .attr("class", "tooltip")
         .style("position", "absolute")
@@ -16,14 +13,21 @@ function createBarChart(container, data, yVar) {
         .style("padding", "5px")
         .style("border-radius", "4px")
         .style("pointer-events", "none")
-        .style("opacity", 0); // Unsichtbar, solange der Benutzer nicht hovert
+        .style("opacity", 0);
 
-    // Funktion zur Aktualisierung des Balkendiagramms basierend auf der ausgewählten X-Variable
-    function updateBarChart(xVar) {
-        // Filtere die Daten für die ausgewählte X-Variable und überprüfe, ob der Wert existiert
+    // SVG-Element für das Diagramm, mit zusätzlicher Margin nach unten verschoben
+    const svg = d3.select(container)
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .style("margin-top", "40px") // Zusätzliche obere Margin für das SVG-Element
+        .append("g")
+        .attr("transform", `translate(${margin.left - 30},${margin.top})`); // Verschiebung nach links (-30px)
+
+    // Globale updateBarChart Funktion
+    updateBarChart = function(xVar) {
         const filteredData = data.filter(d => d[xVar] && d[xVar] > 0);
 
-        // Aktualisiere die Skalen für x und y
         const xScale = d3.scaleLinear()
             .domain([0, d3.max(filteredData, d => d[xVar])])
             .range([0, width]);
@@ -33,12 +37,10 @@ function createBarChart(container, data, yVar) {
             .range([0, height])
             .padding(0.1);
 
-        // Entferne das vorherige Diagramm
         svg.selectAll(".bar").remove();
         svg.selectAll(".x-axis").remove();
         svg.selectAll(".y-axis").remove();
 
-        // Erstelle die Balken
         svg.selectAll(".bar")
             .data(filteredData)
             .enter()
@@ -63,7 +65,6 @@ function createBarChart(container, data, yVar) {
                 tooltip.transition().duration(200).style("opacity", 0);
             });
 
-        // Füge die x-Achse hinzu
         svg.append("g")
             .attr("class", "x-axis")
             .attr("transform", `translate(0,${height})`)
@@ -75,7 +76,6 @@ function createBarChart(container, data, yVar) {
             .style("text-anchor", "middle")
             .text(xVar);
 
-        // Füge die y-Achse mit den Flugzeugmodellen hinzu
         svg.append("g")
             .attr("class", "y-axis")
             .call(d3.axisLeft(yScale))
@@ -86,35 +86,8 @@ function createBarChart(container, data, yVar) {
             .attr("transform", "rotate(-90)")
             .style("text-anchor", "middle")
             .text(yVar);
-    }
-
-    // Erstelle die Buttons über dem Diagramm
-    const buttonContainer = d3.select(container)
-        .append("div")
-        .attr("class", "button-container")
-        .style("display", "flex")
-        .style("gap", "5px")
-        .style("margin-top", "50px") // Erhöhe diesen Wert, um die Buttons weiter nach unten zu verschieben
-        .style("margin-bottom", "5px");
-
-    // Button für "Speed"
-    buttonContainer.append("button")
-        .text("Speed")
-        .on("click", () => updateBarChart("Long Range Cruise Speed (km/h)"));
-
-    // Button für "Seat Range"
-    buttonContainer.append("button")
-        .text("Seat X Range")
-        .on("click", () => updateBarChart("Max. seats (single class)"));
-
-    // Erstelle das SVG-Element für das Diagramm
-    const svg = d3.select(container)
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+    };
 
     // Initialisiere das Diagramm mit der Standard-X-Variable
-    updateBarChart(currentXVar);
+    updateBarChart("Long Range Cruise Speed (km/h)");
 }

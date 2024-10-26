@@ -1,246 +1,226 @@
-body {
-    position: absolute;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    margin: 10px;
-    overflow: hidden;
+    justify-content: center;
+    font-family: Arial, sans-serif;
     height: 100vh;
-    width: 100vh;
-    background-color: #f7f7f7; /* Light gray to reduce white glare */
-}
-.row {
-    position: absolute;
-    display: flex; /* Idioms nebeneinander */
-    flex-direction: row;
-    justify-content: start;
-    align-items: flex-start;
-    gap: 5px;
-    width: 100%;
-    margin: 0px;
-    height: 100%;
-      
-}
-/* Flexbox container for visualizations */
-.visualization-container {
+    overflow: hidden;
+    background-color: #f7f7f7;
+  }
+  
+  /* 2x2 Grid für die vier Diagramme */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 80vw;
+    height: 90vh;
+    margin-right: 20vw; /* Platz für die Plane List */
+  }
+  
+  /* Allgemeines Styling für die Diagramme */
+  .grid-item {
     display: flex;
-    justify-content: space-between; /* Space between the two columns */
-    margin: 0px;
-    position: relative; /* Needed for absolute positioning of child elements */
-    height: 100%;
-    width: 100%;
-}
-/* Scatterplots on the left */
-.scatterplot-column {
-    position: relative; /* Parent of absolutely positioned elements */
-    display: flex;
-    flex-direction: column; /* Stack the scatterplots vertically */
-    width: 500px;
-    margin-right: 20px; /* Space between scatterplots and right column */
-    margin: 10px;
-    padding: 10px;
-    background-color: #ffffff; /* White background for each frame */
-    border: 9px solid #cccccc; /* Light border to define each frame */
-    border-radius: 5px;        /* Rounded corners for a softer look */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    z-index: 1; /* Scatterplots are below the buttons but above the background */
-}
-/* Map and Barchart on the right */
-.right-column {
-    display: flex;
-    flex-direction: column; /* Stack the map and barchart vertically */
-    margin: 10px;
-    padding: 10px;
-    background-color: #ffffff; /* White background for each frame */
-    border: 9px solid #cccccc; /* Light border to define each frame */
-    border-radius: 5px;        /* Rounded corners for a softer look */
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    width: 650px; /* Fixed width for the right column */
-    z-index: 3; /* Higher z-index to place the map and barchart above buttons */
-}
-/* Buttons Container Positioned Over Scatterplots */
-.buttons-container1 {
-    position: absolute;
-    display: flex; /* Elemente in einer Reihe anzeigen */
-    flex-direction: row; /* Horizontal anordnen */
-    gap: 10px; /* Abstand zwischen den Buttons */
-    top: 10px; /* Obere Position beibehalten */
-    left: 50px; /* Linke Position beibehalten */
-    z-index: 2; /* Höher als die Scatterplots, aber niedriger als die Map/Barchart */
-    background-color: rgba(255, 255, 255, 0); /* Durchsichtiger Hintergrund */
-    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
-}
-.buttons-container2 {
-    position: absolute;
-    top: 350px; /* Adjust top positioning */
-    left: 100px; /* Adjust left positioning */
-    font: 12px sans-serif;
-    font-weight: bold;
-    z-index: 2; /* Higher than scatterplots, but lower than map/barchart */
-    background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Anpassungen für die Buttons */
+  .buttons-container {
+    display: flex;
+    gap: 10px;
     padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
-}
-.chart {
-    width: 10%;
-    height: 300px;
-    margin: 10px;
-    margin-right: 10px;
-}
-.axis-label {
-    font: 12px sans-serif;
-    font-weight: bold;
-}
-.tooltip {
     position: absolute;
-    text-align: center;
-    width: auto;
-    padding: 6px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 4px;
-    pointer-events: none;
-    z-index: 4;
-}
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    margin-left: 50px;
-    position: relative;
-    top: -10px;
-    width: 150px; /* Feste Breite für die Buttons */
-    height: 50px; /* Feste Höhe für die Buttons */
-    white-space: nowrap; /* Verhindert, dass der Text umgebrochen wird */
-}
-button:hover {
-    background-color: #45a049; /* Dunklere grÃ¼ne Hintergrundfarbe */
-}
-
-#hideOutliers {
-    background-color: grey; /* Red color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 10px; /* Optional, to add space */
-}
-
-#hideOutliers:hover {
-    background-color: #d32f2f; /* Darker red */
-}
-#clearListButton{
-    position: absolute; /* Absolute Positionierung */
-    right: 10px; /* 10px Abstand von der rechten Seite des Containers */
-    top: 10px; /* 10px Abstand von der oberen Seite des Containers */
-    z-index: 100;
-
-
-}
-#toggleView {
-    display: inline-block;
-    margin-top: 10px; /* Oberer Abstand zum Container */
-}
-#map{
-    width: 450px; /* Einheitliche Breite fÃ¼r alle Diagramme */
-    height: 450px; /* Einheitliche HÃ¶he fÃ¼r alle Diagramme */
-    margin: 0px; /* Gleicher Abstand zwischen den Diagrammen */
-    position: relative;
-}
-#barChart{
-    width: 450px; /* Einheitliche Breite fÃ¼r alle Diagramme */
-    height: 450px; /* Einheitliche HÃ¶he fÃ¼r alle Diagramme */
-    margin: 0px; /* Gleicher Abstand zwischen den Diagrammen */
-    position: right center;
-}
-
-#scatterplot1, #scatterplot2, #barchart, #map{
-    margin-bottom: 0px; /* Add space between the scatterplots */
-    width: 0%; /* Nutze die volle Breite der jeweiligen Spalte */
-}
-
-#yAxisSelect {
-    margin-bottom: 20px; /* Add space between the dropdown and second scatterplot */
-}
-.dropdown-container {
-    margin-left: 10px; /* Move the dropdown closer to the second scatterplot */
-}
-/* Panel for the plane names on the right */
-#planePanel {
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+  }
+  
+  /* Styling für die Diagramme selbst */
+  .chart {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #speedButton #seatRangeButton{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px; 
+  }
+  
+  /* Reduziert die Größe des Bar Charts und positioniert es innerhalb des Grids */
+  #barChart-container #barChart {
+    width: 80%;
+    height: 80%;
+  }
+  
+  /* Panel für die Flugzeugliste auf der rechten Seite */
+  #planePanel {
     position: fixed;
     right: 0;
     top: 0;
-    width: 250px;
-    height: 100%;
-    overflow-y: auto; /* Allow scrolling if the list is too long */
-    background-color: #f4f4f4; /* Light background */
-    border-left: 2px solid #ccc; /* Add a border on the left */
+    width: 20vw;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+    border-left: 2px solid #ccc;
     padding: 10px;
-    font: 12px sans-serif;
-}
-
-#planePanel h2 {
+  }
+  
+  #planePanel h2 {
+    text-align: center;
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-#planePanel ul {
+    margin: 10px 0;
+  }
+  
+  #planePanel ul {
     list-style: none;
     padding: 0;
-}
-
-#planePanel li {
-    padding: 5px;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #f7f7f7;
+  }
+  
+  /* 2x2 Grid für die vier Diagramme */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 80vw;
+    height: 90vh;
+    margin-right: 20vw; /* Platz für die Plane List */
+  }
+  
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Anpassungen für die Buttons */
+  .buttons-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+  }
+  
+  /* Standardmäßig grüne Buttons */
+  button, select {
+    padding: 8px 12px;
     font-size: 14px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-bottom: 1px solid #ccc;
-}
-
-#planePanel li:hover {
-    background-color: #ddd;
-}
-
-/* Default styling for plane list items */
-.plane-item {
-    padding: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    border-bottom: 1px solid #ccc;
-}
-
-.plane-item:hover {
-    background-color: #ddd;
-}
-
-/* Highlight the selected plane in the list */
-.highlighted {
-    background-color: #fff16e;  /* Yellow background for the highlighted plane */
+    background-color: #28a745;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hide Outliers Button in Grau */
+  #hideOutliers {
+    background-color: grey;
+  }
+  
+  button:hover, select:hover {
+    background-color: #218838;
+  }
+  
+  #hideOutliers:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Styling für Diagramme */
+  .chart {
+    width: 90%;
+    height: 90%;
+  }
+  
+  /* Panel für die Flugzeugliste auf der rechten Seite */
+  #planePanel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 20vw;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f4f4f4;
+    border-left: 2px solid #ccc;
+    padding: 10px;
+  }
+  
+  #planePanel h2 {
+    text-align: center;
+    font-size: 20px;
     font-weight: bold;
-}
-#planeSearch {
-    display: block;             /* Make sure it takes up its own line */
-    margin: 0 auto;             /* Center horizontally */
-    text-align: center;         /* Center text inside the input */
-    width: 80%;                 /* Set width as needed, for example, 80% */
-    padding: 8px;               /* Optional padding for better visuals */
-    font-size: 1em;             /* Optional font size adjustment */
+    margin: 10px 0;
+  }
+  
+  #planePanel ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Markierung ausgewählter Einträge in der Plane List */
+  #planePanel ul li {
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s ease;
+  }
+  
+  #planePanel ul li:hover {
+    background-color: #ddd;
+  }
+  
+  #planePanel ul li.selected {
+    background-color: #28a745;
+    color: #fff;
+  }
+  /* Grüne Hervorhebung für ausgewählte Elemente */
+.plane-item.highlighted {
+    background-color: green;
+    color: white; /* Optional: Textfarbe ändern für bessere Lesbarkeit */
 }
 
-.planePanel {
-    text-align: center;         /* Center elements within this container */
-}
+  

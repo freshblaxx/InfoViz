@@ -1,13 +1,15 @@
 // Create the tooltip div (hidden by default)
-const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("background-color", "white")
-    .style("border", "1px solid #ccc")
-    .style("padding", "8px")
-    .style("border-radius", "4px")
-    .style("pointer-events", "none")
-    .style("visibility", "hidden");  // Initially hidden
+const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("background-color", "white")
+        .style("border", "1px solid #ccc")
+        .style("padding", "5px")
+        .style("border-radius", "4px")
+        .style("pointer-events", "none")
+        .style("opacity", 0);
+
 
 // Function to create a scatterplot with trendline
 function createScatterplotWithTrend(container, data, xVar, yVar, title) {
@@ -80,24 +82,29 @@ function createScatterplotWithTrend(container, data, xVar, yVar, title) {
           .text(yVar);
       
 
-    svg.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("cx", d => xScale(d[xVar]))
-        .attr("cy", d => yScale(d[yVar]))
-        .attr("r", 4.5)
-        .attr("fill", "steelblue")
-        .attr("opacity", 0.7)
-        .on("mouseover", function (event, d) {
-            d3.select("body").append("div").attr("class", "tooltip")
-                .html(`Manufacturer: ${d.Manufacturer} <br/>Type: ${d.Type}<br/> Model: ${d.Model}<br/>${xVar}: ${d[xVar]}<br/>${yVar}: ${d[yVar]}`)
-                .style("left", (event.pageX + 5) + "px")
-                .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function () {
-            d3.selectAll(".tooltip").remove();
-        });
+          svg.selectAll("circle")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("cx", d => xScale(d[xVar]))
+          .attr("cy", d => yScale(d[yVar]))
+          .attr("r", 4.5)
+          .attr("fill", "steelblue")
+          .attr("opacity", 0.7)
+          .on("mouseover", function (event, d) {
+              tooltip.transition().duration(200).style("opacity", 1);
+              tooltip.html(`Manufacturer: ${d.Manufacturer} <br/>Type: ${d.Type}<br/> Model: ${d.Model}<br/>${xVar}: ${d[xVar]}<br/>${yVar}: ${d[yVar]}`)
+                  .style("left", (event.pageX + 5) + "px")
+                  .style("top", (event.pageY - 28) + "px");
+          })
+          .on("mousemove", (event) => {
+              tooltip.style("left", (event.pageX + 5) + "px")
+                     .style("top", (event.pageY - 28) + "px");
+          })
+          .on("mouseout", () => {
+              tooltip.transition().duration(200).style("opacity", 0);
+          });
+
     // Calculate the least squares regression line
     const regression = leastSquares(data.map(d => d[xVar]), data.map(d => d[yVar]));
 
@@ -134,6 +141,7 @@ function createScatterplotWithTrend(container, data, xVar, yVar, title) {
         return { slope, intercept }; // Return slope and intercept for the regression line
     }
 }
+
 
 // Function to handle the second scatterplot with a dropdown for Y-axis selection
 function createSecondScatterplotWithDropdown(data) {
