@@ -42,7 +42,7 @@
             <!-- Buttons über dem Bar Chart -->
             <div class="buttons-container">
                 <button id="speedButton" onclick="updateBarChart('Cruise Speed (km/h)')">Speed</button>
-                <button id="seatRangeButton" onclick="updateBarChart('Seats x Range (seats.km)')">Seat X Range</button>
+                <button id="seatRangeButton" onclick="updateBarChart('Seats x Range (seats x 1000km)')">Seat X Range</button>
             </div>
             <div id="barChart" class="chart"></div>
         </div>
@@ -71,7 +71,7 @@
             "Max. take-off weight (ton)": parseInt(originalData[7][originalData.columns[col]]) || 0,
             "Take off distance (m)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
             "Range (km)":parseFloat(originalData[18][originalData.columns[col]]) || 0,
-            "Seats x Range (seats.km)":parseFloat(originalData[20][originalData.columns[col]]) || 0
+            "Seats x Range (seats x 1000km)":parseFloat(originalData[20][originalData.columns[col]]) || 0
                 });
             }
             loadAndPopulatePlaneList();
