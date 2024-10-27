@@ -1,15 +1,3 @@
-// Create the tooltip div (hidden by default)
-const tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("position", "absolute")
-        .style("background-color", "white")
-        .style("border", "1px solid #ccc")
-        .style("padding", "5px")
-        .style("border-radius", "4px")
-        .style("pointer-events", "none")
-        .style("opacity", 0);
-
 
 // Function to create a scatterplot with trendline
 function createScatterplotWithTrend(container, data, xVar, yVar, title) {
@@ -26,6 +14,17 @@ function createScatterplotWithTrend(container, data, xVar, yVar, title) {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
+// Tooltip für den Scatterplot
+const tooltip = d3.select("body")
+.append("div")
+.attr("class", "tooltip")
+.style("position", "absolute")
+.style("background-color", "white")
+.style("border", "1px solid #ccc")
+.style("padding", "5px")
+.style("border-radius", "4px")
+.style("pointer-events", "none")
+.style("opacity", 0);
 
     // X scale: Use a domain from 1960 to 2020
     const xScale = d3.scaleLinear()
@@ -92,16 +91,19 @@ function createScatterplotWithTrend(container, data, xVar, yVar, title) {
           .attr("fill", "steelblue")
           .attr("opacity", 0.7)
           .on("mouseover", function (event, d) {
+              console.log("Tooltip mouseover"); // Debugging line
               tooltip.transition().duration(200).style("opacity", 1);
               tooltip.html(`Manufacturer: ${d.Manufacturer} <br/>Type: ${d.Type}<br/> Model: ${d.Model}<br/>${xVar}: ${d[xVar]}<br/>${yVar}: ${d[yVar]}`)
                   .style("left", (event.pageX + 5) + "px")
                   .style("top", (event.pageY - 28) + "px");
           })
           .on("mousemove", (event) => {
+              console.log("Tooltip mousemove"); // Debugging line
               tooltip.style("left", (event.pageX + 5) + "px")
                      .style("top", (event.pageY - 28) + "px");
           })
           .on("mouseout", () => {
+              console.log("Tooltip mouseout"); // Debugging line
               tooltip.transition().duration(200).style("opacity", 0);
             })
             .on("click", function(event, d) {

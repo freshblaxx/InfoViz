@@ -227,8 +227,19 @@
     stroke: orange !important;
     stroke-width: 2 !important;
   }
-  .highlighted {
-    background-color: #d0e6ff; /* Light blue highlight */
-    font-weight: bold;
+  .tooltip {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Schatten für bessere Sichtbarkeit */
+    font-size: 12px; /* Schriftgröße anpassen */
+    z-index: 10; /* Sicherstellen, dass Tooltip im Vordergrund bleibt */
 }
+
+
   
