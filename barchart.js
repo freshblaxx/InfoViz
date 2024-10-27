@@ -108,6 +108,18 @@ function createBarChart(container, data, yVar, selectedPlanes) {
             .style("text-anchor", "middle")
             .text(yVar);    
 
+              //  X-Axis Label but not in german
+    svg.append("text")
+    .attr("class", "axis-label")
+    .attr("x", width / 2)
+    .attr("y", height + 35) // Adjust here to be closer to the X axis
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .style("font-weight", "bold")
+    .text(xVar);
+
+
+
         // Rufe die Highlighting-Funktion auf, um ausgewählte Flugzeuge zu markieren
         highlightSelectedPlanesInBarchart();
     };
