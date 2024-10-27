@@ -24,6 +24,8 @@ function createBarChart(container, data, yVar) {
         .append("g")
         .attr("transform", `translate(${margin.left - 30},${margin.top})`);
 
+    
+
     // Funktion zur Aktualisierung des Balkendiagramms, inklusive Highlighting der ausgewählten Flugzeuge
     updateBarChart = function(xVar) {
         const filteredData = data.filter(d => d[xVar] && d[xVar] > 0);
@@ -102,4 +104,5 @@ function createBarChart(container, data, yVar) {
 
     // Initialisiere das Diagramm mit der Standard-X-Variable
     updateBarChart("Long Range Cruise Speed (km/h)");
+    
 }
