@@ -41,8 +41,8 @@
         <div id="barChart-container" class="grid-item">
             <!-- Buttons über dem Bar Chart -->
             <div class="buttons-container">
-                <button id="speedButton" onclick="updateBarChart('Long Range Cruise Speed (km/h)')">Speed</button>
-                <button id="seatRangeButton" onclick="updateBarChart('Max. seats (single class)')">Seat X Range</button>
+                <button id="speedButton" onclick="updateBarChart('Cruise Speed (km/h)')">Speed</button>
+                <button id="seatRangeButton" onclick="updateBarChart('Seats x Range (seats.km)')">Seat X Range</button>
             </div>
             <div id="barChart" class="chart"></div>
         </div>
@@ -55,7 +55,7 @@
         //all loading is now done here instead of planelist, and poissibly duplicating the data
         const data = [];
         let selectedPlanes = [];
-        d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
+        d3.csv("converted_CPI-16_dataset_imp.csv").then(originalData => {
              // Parse the CSV data into the `data` array , starting at col 1 to skil all headers.
             for (let col = 1; col < originalData.columns.length; col++) {
                 data.push({
@@ -67,10 +67,11 @@
             "Max. seats (single class)": parseFloat(originalData[5][originalData.columns[col]]) || 0,
             "Initial Service Date": parseInt(originalData[3][originalData.columns[col]]) || 0,
             "Wing Span (m)": parseFloat(originalData[11][originalData.columns[col]]) || 0,
-            "Long Range Cruise Speed (km/h)": parseFloat(originalData[16][originalData.columns[col]]) || 0,
+            "Cruise Speed (km/h)": parseFloat(originalData[16][originalData.columns[col]]) || 0,
             "Max. take-off weight (ton)": parseInt(originalData[7][originalData.columns[col]]) || 0,
             "Take off distance (m)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
-            "Max. fuel (+p) Range (nm)":parseFloat(originalData[18][originalData.columns[col]]) || 0
+            "Range (km)":parseFloat(originalData[18][originalData.columns[col]]) || 0,
+            "Seats x Range (seats.km)":parseFloat(originalData[20][originalData.columns[col]]) || 0
                 });
             }
             loadAndPopulatePlaneList();
@@ -81,7 +82,7 @@
             // Platzhalter für Weltkarte (Idiom 3)
             createWorldMap("#map",data,selectedPlanes);
             // Platzhalter für Balkendiagramm (Idiom 4)
-            createBarChart("#barChart", data, "Model", "Long Range Cruise Speed (km/h)");
+            createBarChart("#barChart", data, "Model", "Cruise Speed (km/h)");
     });
     function toggleView() {
     const button = document.getElementById('toggleView');

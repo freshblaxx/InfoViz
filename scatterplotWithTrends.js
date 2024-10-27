@@ -165,10 +165,11 @@ function createSecondScatterplotWithDropdown(data) {
         "Weight per Wing Area (kg/m2)",
         "Max. seats (single class)",
         "Wing Span (m)",
-        "Long Range Cruise Speed (km/h)",
+        "Cruise Speed (km/h)",
         "Max. take-off weight (ton)",
         "Take off distance (m)",
-        "Max. fuel (+p) Range (nm)"
+        "Range (km)"
+       // "Seats x Range (seats.km)"
     ];
 
     dropdown.selectAll("option")
@@ -186,7 +187,7 @@ function createSecondScatterplotWithDropdown(data) {
 }
 
 // Load the data and initialize the visualizations
-d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
+d3.csv("converted_CPI-16_dataset_imp.csv").then(originalData => {
     const data = [];
     for (let col = 0; col < originalData.columns.length; col++) {
         data.push({
@@ -198,10 +199,11 @@ d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
             "Max. seats (single class)": parseFloat(originalData[5][originalData.columns[col]]) || 0,
             "Initial Service Date": parseInt(originalData[3][originalData.columns[col]]) || 0,
             "Wing Span (m)": parseFloat(originalData[11][originalData.columns[col]]) || 0,
-            "Long Range Cruise Speed (km/h)": parseFloat(originalData[16][originalData.columns[col]]) || 0,
+            "Cruise Speed (km/h)": parseFloat(originalData[16][originalData.columns[col]]) || 0,
             "Max. take-off weight (ton)": parseInt(originalData[7][originalData.columns[col]]) || 0,
             "Take off distance (m)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
-            "Max. fuel (+p) Range (nm)":parseFloat(originalData[18][originalData.columns[col]]) || 0
+            "Range (km)":parseFloat(originalData[18][originalData.columns[col]]) || 0
+            //"Seats x Range (seats.km)":parsefloat(originalData[19][originalData.columns[col]]) || 0
         });
     }
     

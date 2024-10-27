@@ -173,7 +173,7 @@ svg.append("text")
 
 // Funktion zum Laden der CSV-Datei und Erstellen des Scatterplots
 function loadAndDrawScatterplot() {
-    d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
+    d3.csv("converted_CPI-16_dataset_imp.csv").then(originalData => {
         console.log("CSV-Datei erfolgreich geladen:", originalData);
 
         const attributes = originalData.map(d => d[Object.keys(d)[0]]);

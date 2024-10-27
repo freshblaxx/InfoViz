@@ -103,6 +103,6 @@ function createBarChart(container, data, yVar) {
     };
 
     // Initialisiere das Diagramm mit der Standard-X-Variable
-    updateBarChart("Long Range Cruise Speed (km/h)");
+    updateBarChart("Cruise Speed (km/h)");
     
 }

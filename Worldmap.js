@@ -89,7 +89,7 @@ function createWorldMap(container, data, selectedPlanes) {
 
          // Scale for circle size based on Range
          const rangeScale = d3.scaleLinear()
-         .domain([0, d3.max(data, d => d["Max. fuel (+p) Range (nm)"])])
+         .domain([0, d3.max(data, d => d["Range (km)"])])
          .range([2, 100]);
 
         // **Function to draw circles based on current projection center**
@@ -103,7 +103,7 @@ function createWorldMap(container, data, selectedPlanes) {
                     .append("circle")
                     .attr("cx", width / 2)
                     .attr("cy", height / 2)
-                    .attr("r", d => rangeScale(d["Max. fuel (+p) Range (nm)"]))
+                    .attr("r", d => rangeScale(d["Range (km)"]))
                     .attr("fill", "none")
                     .attr("stroke", "steelblue")
                     .attr("stroke-width", 2)
@@ -113,7 +113,7 @@ function createWorldMap(container, data, selectedPlanes) {
                         // Show tooltip with plane details
                         tooltip.html(
                             `<strong>Airplane:</strong> ${d.Type}${d.Model}<br/>
-                             <strong>Range:</strong> ${d["Max. fuel (+p) Range (nm)"]} nm`
+                             <strong>Range:</strong> ${d["Range (km)"]} km`
                         )
                         .style("visibility", "visible")
                         .style("opacity", 1); // Fade in
@@ -136,7 +136,7 @@ function createWorldMap(container, data, selectedPlanes) {
                     .append("text")
                     .attr("x", width / 2)
                     .attr("y", (d, i) => {
-                        const offset = rangeScale(d["Max. fuel (+p) Range (nm)"]) + 10;
+                        const offset = rangeScale(d["Range (km)"]) + 10;
                         return (i % 2 === 0) ? (height / 2) - offset : (height / 2) + offset;
                     }) // Alternate positions for labels
                     .attr("text-anchor", "middle")
