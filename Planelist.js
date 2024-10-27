@@ -143,6 +143,9 @@ function clearSelectedPlanes() {
     selectedPlanes = [];
     d3.selectAll(".plane-item").classed("highlighted", false); // Remove highlighting
     highlightSelectedPlanesInScatterplot(); // Update the scatterplot to reflect the cleared selection
+    highlightSelectedPlanesInBarChart();     // Clear highlights in bar chart
+    updateWorldMap();                        // Update the map
+    clearMapSelections();                    // Clear map selections
 }
 
 // Function to add a "Clear Selections" button in the plane panel
