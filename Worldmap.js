@@ -90,7 +90,7 @@ function createWorldMap(container, data, selectedPlanes) {
          // Scale for circle size based on Range
          const rangeScale = d3.scaleLinear()
          .domain([0, d3.max(data, d => d["Range (km)"])])
-         .range([2, 100]);
+         .range([1, 275]);
 
         // **Function to draw circles based on current projection center**
             function updateRangeCircles() {

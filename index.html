@@ -41,8 +41,8 @@
         <div id="barChart-container" class="grid-item">
             <!-- Buttons über dem Bar Chart -->
             <div class="buttons-container">
-                <button id="speedButton" onclick="updateBarChart('Cruise Speed (km/h)')">Speed</button>
-                <button id="seatRangeButton" onclick="updateBarChart('Seats x Range (seats x 1000km)')">Seat X Range</button>
+                <button id="speedButton" onclick="updateBarChart('Cruise Speed (km/h)',selectedPlanes)">Speed</button>
+                <button id="seatRangeButton" onclick="updateBarChart('Seats x Range (seats x 1000km)',selectedPlanes)">Seat X Range</button>
             </div>
             <div id="barChart" class="chart"></div>
         </div>
@@ -82,7 +82,7 @@
             // Platzhalter für Weltkarte (Idiom 3)
             createWorldMap("#map",data,selectedPlanes);
             // Platzhalter für Balkendiagramm (Idiom 4)
-            createBarChart("#barChart", data, "Model", "Cruise Speed (km/h)");
+            createBarChart("#barChart", data, "Model", "Cruise Speed (km/h)",selectedPlanes);
     });
     function toggleView() {
     const button = document.getElementById('toggleView');

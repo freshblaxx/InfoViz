@@ -142,10 +142,12 @@ document.addEventListener('DOMContentLoaded', loadAndPopulatePlaneList);
 function clearSelectedPlanes() {
     selectedPlanes = [];
     d3.selectAll(".plane-item").classed("highlighted", false); // Remove highlighting
-    highlightSelectedPlanesInScatterplot(); // Update the scatterplot to reflect the cleared selection
-    highlightSelectedPlanesInBarChart();     // Clear highlights in bar chart
+    highlightSelectedPlanesInScatterplot(); // Update the scatterplot to reflect the cleared selection    
     updateWorldMap();                        // Update the map
     clearMapSelections();                    // Clear map selections
+    updateBarChart("Cruise Speed (km/h)",selectedPlanes);
+    highlightSelectedPlanesInBarChart()
+    
 }
 
 // Function to add a "Clear Selections" button in the plane panel
@@ -176,5 +178,6 @@ function togglePlaneSelection(data, listItem) {
     highlightSelectedPlanesInScatterplot();
     highlightSelectedPlanesInBarChart();
     updateWorldMap(); // Trigger the event after updating selection.
+    updateBarChart("Cruise Speed (km/h)",selectedPlanes);
     
 }

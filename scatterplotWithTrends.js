@@ -114,7 +114,7 @@ const tooltip = d3.select("body")
 
     // Calculate the least squares regression line
     const regression = leastSquares(data.map(d => d[xVar]), data.map(d => d[yVar]));
-
+/*
     // Draw the trendline
     svg.append("line")
         .attr("x1", xScale(1960)) // Start trendline at 1960
@@ -133,6 +133,7 @@ const tooltip = d3.select("body")
         .on("mouseout", function () {
             d3.selectAll(".tooltip").remove();
         });
+        */
     // Function to calculate the least squares regression (slope and intercept)
     function leastSquares(x, y) {
         const n = x.length;

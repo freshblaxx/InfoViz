@@ -1,6 +1,6 @@
-function createBarChart(container, data, yVar) {
+function createBarChart(container, data, yVar, selectedPlanes) {
     const margin = { top: 20, right: 20, bottom: 40, left: 80 };
-    const width = 400 - margin.left - margin.right;
+    const width = 450 - margin.left - margin.right;
     const height = 340 - margin.top - margin.bottom;
 
     // Tooltip für das Balkendiagramm
@@ -27,32 +27,42 @@ function createBarChart(container, data, yVar) {
     
 
     // Funktion zur Aktualisierung des Balkendiagramms, inklusive Highlighting der ausgewählten Flugzeuge
-    updateBarChart = function(xVar) {
-        const filteredData = data.filter(d => d[xVar] && d[xVar] > 0);
-
+        updateBarChart = function(xVar,selectedPlanes) {
+            const selectedMap = new Map(selectedPlanes.map(plane => [`${plane.Type}-${plane.Model}`, plane]));
+        
+        // Filter data based on both conditions:
+        const filteredData = data.filter(d => 
+            d[xVar] && d[xVar] > 0 && selectedMap.has(`${d.Type}-${d.Model}`)
+        );
+        const filteredDataS = filteredData.sort((a, b) => b[xVar] - a[xVar]);//sorting 
+        
         const xScale = d3.scaleLinear()
-            .domain([0, d3.max(filteredData, d => d[xVar])])
+            .domain([0, d3.max(filteredDataS, d => d[xVar])])
             .range([0, width]);
 
         const yScale = d3.scaleBand()
-            .domain(filteredData.map(d => d[yVar]))
+        .domain(filteredDataS.map(d => `${d.Manufacturer} ${d.Type} ${d.Model}`)) 
             .range([0, height])
             .padding(0.1);
 
         svg.selectAll(".bar").remove();
         svg.selectAll(".x-axis").remove();
         svg.selectAll(".y-axis").remove();
+        // Define a color scale that maps bar values to shades of green
+        const colorScale = d3.scaleLinear()
+            .domain([0, d3.max(filteredDataS, d => +d[xVar])])
+            .range(["#a8e6a3", "#006400"]);  // Light green to dark green
 
         svg.selectAll(".bar")
-            .data(filteredData)
+            .data(filteredDataS)
             .enter()
             .append("rect")
             .attr("class", "bar")
             .attr("x", 0)
-            .attr("y", d => yScale(d[yVar]))
+            .attr("y", d => yScale(`${d.Manufacturer} ${d.Type} ${d.Model}`))  // Use combined label
             .attr("width", d => xScale(d[xVar]))
             .attr("height", yScale.bandwidth())
-            .attr("fill", d => selectedPlanes.includes(d) ? "orange" : "steelblue") // Highlight selected planes
+            .attr("fill", d => selectedPlanes.includes(d) ? "green" : "steelblue") // Highlight selected planes
             .on("mouseover", (event, d) => {
                 tooltip.transition().duration(200).style("opacity", 1);
                 tooltip.html(`<strong>${yVar}:</strong> ${d[yVar]}<br><strong>${xVar}:</strong> ${d[xVar]}`)
@@ -96,13 +106,13 @@ function createBarChart(container, data, yVar) {
             .attr("y", -40)
             .attr("transform", "rotate(-90)")
             .style("text-anchor", "middle")
-            .text(yVar);
+            .text(yVar);    
 
         // Rufe die Highlighting-Funktion auf, um ausgewählte Flugzeuge zu markieren
         highlightSelectedPlanesInBarchart();
     };
 
     // Initialisiere das Diagramm mit der Standard-X-Variable
-    updateBarChart("Cruise Speed (km/h)");
+    updateBarChart("Cruise Speed (km/h)",selectedPlanes);
     
 }
