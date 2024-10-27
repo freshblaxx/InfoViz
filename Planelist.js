@@ -5,8 +5,8 @@ function cleanManufacturerName(manufacturer) {
 }
 
 // Array to store the selected planes
-let selectedPlanes = [];
-
+//let selectedPlanes = [];
+//let data = [];
 // Function to populate the plane panel
 function populatePlanePanel(data) {
     const planePanel = d3.select("#planePanel");
@@ -61,26 +61,29 @@ function filterPlaneList(data, searchTerm) {
         }
     });
 }
-
+/*
 // Function to toggle plane selection in the list and scatterplot
 // Function to toggle plane selection in the list, scatterplot, and bar chart
-function togglePlaneSelection(planeData, listItem) {
-    const planeIndex = selectedPlanes.indexOf(planeData);
-
+function togglePlaneSelection(data, listItem) {
+    //const planeIndex = selectedPlanes.indexOf(data);
+    const planeIndex = selectedPlanes.findIndex(selected => 
+        selected.Type === data.Type && selected.Model === data.Model
+    );
     if (planeIndex === -1) {
         // Plane is not selected yet, so add it to the selected planes
-        selectedPlanes.push(planeData);
+        selectedPlanes.push(data);
         listItem.classed("highlighted", true);
     } else {
         // Plane is already selected, so remove it from the selected planes
         selectedPlanes.splice(planeIndex, 1);
         listItem.classed("highlighted", false);
     }
-
-    // Update the scatterplot and bar chart to reflect the new selection
     highlightSelectedPlanesInScatterplot();
     highlightSelectedPlanesInBarchart();
+    updateWorldMap(); // Trigger the event after updating selection.
 }
+
+*/
 
 
 // Function to highlight the selected planes in the scatterplot
@@ -89,9 +92,9 @@ function highlightSelectedPlanesInScatterplot() {
     d3.selectAll("circle").attr("fill", "steelblue").attr("r", 4.5);
 
     // Highlight each selected plane in the scatterplot
-    selectedPlanes.forEach(planeData => {
+    selectedPlanes.forEach(data => {
         d3.selectAll("circle")
-            .filter(d => d.Model === planeData.Model && d.Manufacturer === planeData.Manufacturer)
+            .filter(d => d.Model === data.Model && d.Manufacturer === data.Manufacturer)
             .attr("fill", "orange")  // Change color to highlight
             .attr("r", 8);  // Increase size for emphasis
     });
@@ -103,40 +106,24 @@ function highlightSelectedPlanesInBarChart() {
     d3.selectAll(".bar").classed("highlighted-bar", false);
 
     // Highlight each selected plane in the bar chart
-    selectedPlanes.forEach(planeData => {
+    selectedPlanes.forEach(data => {
         d3.selectAll(".bar")
              .filter(d => 
-                d.Model.trim() === planeData.Model.trim() &&
-                d.Manufacturer.trim() === planeData.Manufacturer.trim() &&
-                d.Type.trim() === planeData.Type.trim()  // Added condition for Type
+                d.Model.trim() === data.Model.trim() &&
+                d.Manufacturer.trim() === data.Manufacturer.trim() &&
+                d.Type.trim() === data.Type.trim()  // Added condition for Type
         )
             .classed("highlighted-bar", true);
     });
 }
 
 
+
 // Function to load data from the CSV and populate the plane panel
 function loadAndPopulatePlaneList() {
-    d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
-        const attributes = originalData.map(d => d[Object.keys(d)[0]]);
-        const data = [];
-        for (let col = 1; col < originalData.columns.length; col++) {
-            const airplane = {};
-            for (let row = 0; row < attributes.length; row++) {
-                airplane[attributes[row]] = originalData[row][originalData.columns[col]];
-            }
-            airplane["Fuel(l) per seat per 100km"] = parseFloat(airplane["Fuel(l) per seat per 100km"]) || 0;
-            airplane["Max. seats (single class)"] = parseFloat(airplane["Max. seats (single class)"]) || 0;
-            airplane["Max. take-off weight (ton)"] = parseInt(airplane["Max. take-off weight (ton)"]) || 0;
-            airplane["Take off distance (m)"] = parseFloat(airplane["Take off distance (m)"]) || 0;
-            data.push(airplane);
-        }
-
         // Call the function to populate the plane panel
         populatePlanePanel(data);
-    }).catch(error => {
-        console.error("Error loading or processing CSV data:", error);
-    });
+    
 }
 
 
@@ -160,12 +147,13 @@ function addClearButton() {
         .text("Clear Selections")
         .on("click", clearSelectedPlanes);
 }
-function togglePlaneSelection(planeData, listItem) {
-    const planeIndex = selectedPlanes.indexOf(planeData);
+
+function togglePlaneSelection(data, listItem) {
+    const planeIndex = selectedPlanes.indexOf(data);
 
     if (planeIndex === -1) {
         // Flugzeug ist nicht ausgewählt, daher hinzufügen und hervorheben
-        selectedPlanes.push(planeData);
+        selectedPlanes.push(data);
         listItem.classed("highlighted", true);
     } else {
         // Flugzeug ist bereits ausgewählt, daher entfernen und Hervorhebung löschen
@@ -176,4 +164,5 @@ function togglePlaneSelection(planeData, listItem) {
     // Scatterplot aktualisieren, um die neue Auswahl anzuzeigen
     highlightSelectedPlanesInScatterplot();
     highlightSelectedPlanesInBarChart();
+    updateWorldMap(); // Trigger the event after updating selection.
 }

@@ -160,7 +160,8 @@ function createSecondScatterplotWithDropdown(data) {
         "Wing Span (m)",
         "Long Range Cruise Speed (km/h)",
         "Max. take-off weight (ton)",
-        "Take off distance (m)"
+        "Take off distance (m)",
+        "Max. fuel (+p) Range (nm)"
     ];
 
     dropdown.selectAll("option")
@@ -192,10 +193,11 @@ d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
             "Wing Span (m)": parseFloat(originalData[11][originalData.columns[col]]) || 0,
             "Long Range Cruise Speed (km/h)": parseFloat(originalData[16][originalData.columns[col]]) || 0,
             "Max. take-off weight (ton)": parseInt(originalData[7][originalData.columns[col]]) || 0,
-            "Take off distance (m)": parseFloat(originalData[15][originalData.columns[col]]) || 0
+            "Take off distance (m)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
+            "Max. fuel (+p) Range (nm)":parseFloat(originalData[18][originalData.columns[col]]) || 0
         });
     }
-
+    
     // Initialize the first scatterplot (with trendline) on top
     createScatterplotWithTrend("#scatterplot2", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Max. seats (single class) vs. Fuel(l) per seat per 100km");
 

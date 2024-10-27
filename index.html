@@ -9,8 +9,8 @@
     <script src="PlaneList.js"></script>
     <script src="scatterplot.js"></script>
     <script src="scatterplotWithTrends.js"></script>
-    <script src="worldMap.js"></script>
     <script src="barChart.js"></script>
+    <script src="worldMap.js"></script>
 </head>
 <body>
     <div class="dashboard-grid">
@@ -52,34 +52,34 @@
     
     
     <script>
+        //all loading is now done here instead of planelist, and poissibly duplicating the data
         const data = [];
+        let selectedPlanes = [];
         d3.csv("converted_CPI-16_dataset.csv").then(originalData => {
-            
-            for (let col = 0; col < originalData.columns.length; col++) {
+             // Parse the CSV data into the `data` array , starting at col 1 to skil all headers.
+            for (let col = 1; col < originalData.columns.length; col++) {
                 data.push({
                     Manufacturer: originalData[0][originalData.columns[col]],
-                    Type: originalData[1][originalData.columns[col]],
-                    Model: originalData[2][originalData.columns[col]],
-                    "Fuel(l) per seat per 100km": parseFloat(originalData[21][originalData.columns[col]]) || 0,
-                    "Weight per Wing Area (kg/m2)": parseFloat(originalData[8][originalData.columns[col]]) || 0,
-                    "Max. seats (single class)": parseFloat(originalData[5][originalData.columns[col]]) || 0,
-                    "Initial Service Date": parseInt(originalData[3][originalData.columns[col]]) || 0,
-                    "Wing Span (m)": parseFloat(originalData[10][originalData.columns[col]]) || 0,
-                    "Long Range Cruise Speed (km/h)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
-                    "Max. take-off weight (ton)": parseInt(originalData[11][originalData.columns[col]]) || 0,
-                    "Take off distance (m)": parseFloat(originalData[19][originalData.columns[col]]) || 0
+            Type: originalData[1][originalData.columns[col]],
+            Model: originalData[2][originalData.columns[col]],
+            "Fuel(l) per seat per 100km": parseFloat(originalData[21][originalData.columns[col]]) || 0,
+            "Weight per Wing Area (kg/m2)": parseFloat(originalData[13][originalData.columns[col]]) || 0,
+            "Max. seats (single class)": parseFloat(originalData[5][originalData.columns[col]]) || 0,
+            "Initial Service Date": parseInt(originalData[3][originalData.columns[col]]) || 0,
+            "Wing Span (m)": parseFloat(originalData[11][originalData.columns[col]]) || 0,
+            "Long Range Cruise Speed (km/h)": parseFloat(originalData[16][originalData.columns[col]]) || 0,
+            "Max. take-off weight (ton)": parseInt(originalData[7][originalData.columns[col]]) || 0,
+            "Take off distance (m)": parseFloat(originalData[15][originalData.columns[col]]) || 0,
+            "Max. fuel (+p) Range (nm)":parseFloat(originalData[18][originalData.columns[col]]) || 0
                 });
             }
-
+            loadAndPopulatePlaneList();
             // Scatterplot 1: Fuel Efficiency vs. Takeoff Distance
             createScatterplot("#scatterplot1", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Fuel(l) per seat per 100km vs. Max. seats (single class)" );
-
             // Scatterplot 2: Initial Service Date vs. Wing Span (mit Trendlinie)
             createScatterplotWithTrend("#scatterplot", data, "Max. seats (single class)", "Fuel(l) per seat per 100km", "Max. seats (single class) vs. Fuel(l) per seat per 100km");
-
             // Platzhalter für Weltkarte (Idiom 3)
-            createWorldMap("#map");
-
+            createWorldMap("#map",data,selectedPlanes);
             // Platzhalter für Balkendiagramm (Idiom 4)
             createBarChart("#barChart", data, "Model", "Long Range Cruise Speed (km/h)");
     });
