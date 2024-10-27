@@ -1,5 +1,5 @@
 function createBarChart(container, data, yVar, selectedPlanes) {
-    const margin = { top: 20, right: 20, bottom: 40, left: 180 };
+    const margin = { top: 20, right: 20, bottom: 40, left: 170 };
     const width = 550 - margin.left - margin.right;
     const height = 340 - margin.top - margin.bottom;
 
@@ -108,15 +108,19 @@ function createBarChart(container, data, yVar, selectedPlanes) {
             .style("text-anchor", "middle")
             .text(yVar);    
 
-              //  X-Axis Label but not in german
-    svg.append("text")
+         // Entferne den alten Achsentitel, falls vorhanden
+svg.select(".axis-label").remove();
+
+// Füge den neuen Achsentitel hinzu
+svg.append("text")
     .attr("class", "axis-label")
     .attr("x", width / 2)
-    .attr("y", height + 35) // Adjust here to be closer to the X axis
+    .attr("y", height + 35) // Anpassung für die X-Achse
     .style("text-anchor", "middle")
     .style("font-size", "12px")
     .style("font-weight", "bold")
     .text(xVar);
+
 
 
 
