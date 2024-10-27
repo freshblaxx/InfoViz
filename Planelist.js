@@ -84,8 +84,16 @@ function togglePlaneSelection(data, listItem) {
 }
 
 */
-
-
+//function to ensure the selected planes trought interactions in other idioms highlight elements in the planelist.
+function updatePlaneListHighlight() {
+    // Select all list items in the plane list
+    d3.selectAll(".plane-list-item").each(function(d) {
+        const isSelected = selectedPlanes.some(selected => 
+            selected.Type === d.Type && selected.Model === d.Model
+        );
+        d3.select(this).classed("highlighted", isSelected);
+    });
+}
 // Function to highlight the selected planes in the scatterplot
 function highlightSelectedPlanesInScatterplot() {
     // Reset all scatterplot points to default
@@ -165,4 +173,5 @@ function togglePlaneSelection(data, listItem) {
     highlightSelectedPlanesInScatterplot();
     highlightSelectedPlanesInBarChart();
     updateWorldMap(); // Trigger the event after updating selection.
+    
 }

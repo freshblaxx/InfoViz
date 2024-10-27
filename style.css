@@ -227,5 +227,8 @@
     stroke: orange !important;
     stroke-width: 2 !important;
   }
-
+  .highlighted {
+    background-color: #d0e6ff; /* Light blue highlight */
+    font-weight: bold;
+}
   

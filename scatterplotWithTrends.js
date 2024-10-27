@@ -103,7 +103,12 @@ function createScatterplotWithTrend(container, data, xVar, yVar, title) {
           })
           .on("mouseout", () => {
               tooltip.transition().duration(200).style("opacity", 0);
-          });
+            })
+            .on("click", function(event, d) {
+                togglePlaneSelection(d, d3.select(this));  // Add plane to selection on click
+            });
+    
+        highlightSelectedPlanesInScatterplot();
 
     // Calculate the least squares regression line
     const regression = leastSquares(data.map(d => d[xVar]), data.map(d => d[yVar]));

@@ -119,8 +119,14 @@ svg.append("text")
         })
         .on("mouseout", () => {
             tooltip.transition().duration(200).style("opacity", 0);
+        })
+        .on("click", function(event, d) {
+            // Toggle plane selection on click
+            togglePlaneSelection(d, d3.select(this));  // Call function to toggle selection
         });
 
+    // Function to highlight selected planes
+    highlightSelectedPlanesInScatterplot();
     // Überschrift zum Scatterplot hinzufügen
     svg.append("text")
         .attr("x", width / 2)
