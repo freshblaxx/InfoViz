@@ -1,6 +1,6 @@
 function createBarChart(container, data, yVar, selectedPlanes) {
     const margin = { top: 20, right: 20, bottom: 40, left: 180 };
-    const width = 450 - margin.left - margin.right;
+    const width = 550 - margin.left - margin.right;
     const height = 340 - margin.top - margin.bottom;
 
     // Tooltip für das Balkendiagramm
