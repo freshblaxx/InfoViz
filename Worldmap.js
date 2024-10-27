@@ -58,7 +58,7 @@ function createWorldMap(container, data, selectedPlanes) {
 
 
     //Load and render world map GeoJSON data
-    d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson").then(function(geojson) {
+    d3.json("world.geojson.txt").then(function(geojson) {
         // Zeichne die Ländergrenzen
         svg.append("g")
             .selectAll("path")
