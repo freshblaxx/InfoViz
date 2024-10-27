@@ -32,7 +32,7 @@ function createWorldMap(container, data, selectedPlanes) {
     
     // **Define panning behavior only (no zoom)**
     const pan = d3.zoom()
-        .scaleExtent([0.9, 1.1])  // Prevent zooming
+        .scaleExtent([0.7, 1.9])  // Prevent zooming
         .on("zoom", (event) => {
             // Update projection translation
             svg.transition().duration(100).attr("transform", event.transform); // Add smoothness to panning
